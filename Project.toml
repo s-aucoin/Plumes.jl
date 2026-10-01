@@ -1,6 +1,6 @@
 name = "Plumes"
 uuid = "bad9e75c-82a8-4a1c-82f7-a87e1b719d4d"
-version = "1.0.0-DEV"
+version = "0.1.1"
 authors = ["Sam Aucoin", "sam.aucoin@dal.ca"]
 
 [workspace]
