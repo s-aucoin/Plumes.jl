@@ -21,7 +21,7 @@ function PlumeRi(w, b, g_prime)
 end
 
 """
-    PlumeRi(Γ, κ, α)
+    PlumeRi(Γ; κ=2, α=0.11)
 
 Calculate the source Richardson number from the source parameter `Γ`, shape coefficient `κ`, and entrainment coefficient `α`.
 """

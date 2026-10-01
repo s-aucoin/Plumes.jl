@@ -3,6 +3,9 @@ uuid = "bad9e75c-82a8-4a1c-82f7-a87e1b719d4d"
 version = "1.0.0-DEV"
 authors = ["Sam Aucoin", "sam.aucoin@dal.ca"]
 
+[workspace]
+projects = ["docs"]
+
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 DocumenterTools = "35a29f4d-8980-5a13-9543-d66fff28ecb8"
@@ -12,6 +15,9 @@ LsqFit = "2fda8390-95c7-5789-9bda-21331edee243"
 NonlinearSolve = "8913a72c-1f9b-4ce2-8d82-65094dcecaec"
 OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
 
+[sources]
+ExtraStats = {rev = "main", url = "https://github.com/s-aucoin/ExtraStats.jl"}
+
 [compat]
 Dates = "1.11.0"
 DocumenterTools = "0.1.21"
@@ -20,7 +26,7 @@ Integrals = "5.5.2"
 LsqFit = "0.16.1"
 NonlinearSolve = "4.32.0"
 OrdinaryDiffEq = "7.8.1"
-julia = "1.10.10"
+julia = "1.11 - 1.13"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
