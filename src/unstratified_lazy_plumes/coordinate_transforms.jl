@@ -24,6 +24,11 @@ end
 
 
 ###################
+import QuadGK
+import LsqFit.ForwardDiff as ForwardDiff
+QuadGK.kronrod(::Type{<:ForwardDiff.Dual{T,V,N}}, n::Integer) where {T,V,N} = QuadGK.kronrod(V, n)
+# overload the kronrod method for ForwardDiff.Dual types to avoid errors when using autodiff with QuadGK
+
 """
     Γ_integral(Γ, Γ₀)
 
