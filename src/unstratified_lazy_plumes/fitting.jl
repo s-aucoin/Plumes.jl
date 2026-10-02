@@ -15,7 +15,7 @@ function LSFitPlumeW(z, w, ρₐ; p0 = [0.1, 0.01, 0.999*ρₐ], κ=2, α=0.11, 
 
     Γ₀(b₀, w₀, ρ₀) = Γ₀Definition(b₀, w₀, ρ₀, ρₐ; κ, α, g)
 
-    Γ(z, b₀, w₀, ρ₀) = ζ2Γ(z2ζ(z, b₀; α), Γ₀(b₀, w₀, ρ₀); uspan=[1.0001, Γ₀(b₀, w₀, ρ₀)])
+    Γ(z, b₀, w₀, ρ₀) = ζ2Γ(z2ζ(z, b₀; α), Γ₀(b₀, w₀, ρ₀))
 
     LazyPlumeWBasicParameters(z, b₀, w₀, ρ₀) = LazyPlumeW(Γ(z, b₀, w₀, ρ₀), Γ₀(b₀, w₀, ρ₀), w₀)
 
