@@ -29,6 +29,7 @@ import LsqFit.ForwardDiff as ForwardDiff
 QuadGK.kronrod(::Type{<:ForwardDiff.Dual{T,V,N}}, n::Integer) where {T,V,N} = QuadGK.kronrod(V, n)
 # overload the kronrod method for ForwardDiff.Dual types to avoid errors when using autodiff with QuadGK
 
+#=
 """
     Γ_integral(Γ, Γ₀)
 
@@ -79,6 +80,63 @@ function ζ2Γ(ζ, Γ₀; uspan=[1.0001, Γ₀], method=:lazy)
     return solve(prob2solve, FastShortcutNonlinearPolyalg(autodiff = AutoFiniteDiff())).u
 
 end
+=#
+
+# redesign the functions so that you don't have to specify a method #
+"""
+    Γ_integral(Γ, Γ₀)
+
+Calculate the integral contained in equation 4.4 of Hunt and Kaye (2005) from a value of `Γ` and its source value `Γ₀`.
+"""
+function Γ_integral(Γ, Γ₀)
+    ## get the appropriate function for the integral ##
+    if Γ₀ > 1.0
+        f2integrate = integrand_lazy
+    else
+        f2integrate = integrand_forced
+    end
+
+    bounds = (Γ₀, Γ)
+    ζ_prob = IntegralProblem(f2integrate, bounds)
+    return solve(ζ_prob, QuadGKJL()).u
+end
+
+"""
+    Γ2ζ(Γ, Γ₀)
+
+Calculate the height parameter `ζ` from a value of `Γ` and its source value `Γ₀`.
+"""
+function Γ2ζ(Γ, Γ₀)
+    ## get the appropriate function for the integral factor ##
+    if Γ₀ > 1.0
+        integral_factor = integral_factor_lazy
+    else
+        integral_factor = integral_factor_forced
+    end
+
+    return integral_factor(Γ₀) * Γ_integral(Γ, Γ₀)
+end
+
+"""
+    ζ2Γ(ζ, Γ₀; ΔΓ = 0.0001)
+
+Calculate the plume parameter `Γ` for a height `ζ` and source plume parameter `Γ₀`.
+"""
+function ζ2Γ(ζ, Γ₀; ΔΓ = 0.0001)
+
+    Γ_relation(Γ, p) = Γ2ζ(Γ, Γ₀) .- ζ
+
+    if Γ₀ > 1.0
+        uspan = [1+ΔΓ, Γ₀]
+    else
+        uspan = [Γ₀, 1-ΔΓ]
+    end
+
+    prob2solve = IntervalNonlinearProblem(Γ_relation, uspan)
+    return solve(prob2solve, FastShortcutNonlinearPolyalg(autodiff = AutoFiniteDiff())).u
+
+end
+
 
 # Definitions of the integrand for the ζ and Γ relationship #
 integral_factor_lazy(Γ₀) = -3/10 * (Γ₀ - 1)^(3/10) * Γ₀^(-1/2)
