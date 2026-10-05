@@ -24,6 +24,12 @@ end
 
 
 ###################
+import QuadGK
+import LsqFit.ForwardDiff as ForwardDiff
+QuadGK.cachedrule(::Type{<:ForwardDiff{<:Any, T}}, n::Integer) where {T<:Number} =
+    QuadGK._cachedrule(typeof(float(real(one(T)))), Int(n))
+
+
 """
     Γ_integral(Γ, Γ₀)
 
