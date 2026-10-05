@@ -22,8 +22,6 @@ function LSFitPlumeW(z, w, ρₐ; p0 = [0.1, 0.01, 0.999*ρₐ], κ=2, α=0.11, 
     ## p[1] is b₀, p[2] is w₀, p[3] is ρ₀ ##
     fitmodel(z, p) = LazyPlumeWBasicParameters.(z, p[1], p[2], p[3])
     
-    upper = [Inf, Inf, prevfloat(ρₐ)]
-    lower = [eps(Float64), eps(Float64), 998.0]
-    return curve_fit(fitmodel, z, w, p0; upper, lower)
+    return curve_fit(fitmodel, z, w, p0; upper, lower; autodiff=:finiteforward)
 
 end
