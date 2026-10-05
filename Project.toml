@@ -14,7 +14,6 @@ Integrals = "de52edbc-65ea-441a-8357-d3a637375a31"
 LsqFit = "2fda8390-95c7-5789-9bda-21331edee243"
 NonlinearSolve = "8913a72c-1f9b-4ce2-8d82-65094dcecaec"
 OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
-QuadGK = "1fd47b50-473d-5c70-9696-f719f8f3bcdc"
 
 [sources]
 ExtraStats = {rev = "main", url = "https://github.com/s-aucoin/ExtraStats.jl"}
@@ -27,7 +26,6 @@ Integrals = "5.5.2"
 LsqFit = "0.16.1"
 NonlinearSolve = "4.32.0"
 OrdinaryDiffEq = "7.8.1"
-QuadGK = "2.11.3"
 julia = "1.11 - 1.13"
 
 [extras]
