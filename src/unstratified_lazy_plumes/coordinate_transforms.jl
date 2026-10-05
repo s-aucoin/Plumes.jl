@@ -39,7 +39,7 @@ function Γ_integral(Γ, Γ₀; method=:lazy)
 
     bounds = (Γ₀, Γ)
     ζ_prob = IntegralProblem(f2integrate, bounds)
-    return solve(ζ_prob, QuadGKJL()).u
+    return solve(ζ_prob, HCubatureJL()).u
 end
 
 """
